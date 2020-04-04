@@ -1,0 +1,18 @@
+[
+  {
+    "title": "The Simpsons Movie (2007)",
+    "rating": "7.3",
+    "posterURL": "https://m.media-amazon.com/images/M/MV5BMTgxMDczMTA5N15BMl5BanBnXkFtZTcwMzk1MzMzMw@@._V1_UX182_CR0,0,182,268_AL_.jpg",
+    "ratingCount": "300,741",
+    "releaseDate": "27 July 2007 (USA)",
+    "genres": ["Animation", "Adventure", "Comedy"]
+  },
+  {
+    "title": "Life of Pi (2012)",
+    "rating": "7.9",
+    "posterURL": "https://m.media-amazon.com/images/M/MV5BNTg2OTY2ODg5OF5BMl5BanBnXkFtZTcwODM5MTYxOA@@._V1_UX182_CR0,0,182,268_AL_.jpg",
+    "ratingCount": "557,636",
+    "releaseDate": "21 November 2012 (USA)",
+    "genres": ["Adventure", "Drama", "Fantasy"]
+  }
+]

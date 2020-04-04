@@ -1,5 +1,6 @@
 const request = require('request-promise');
 const cheerio = require('cheerio');
+const fs = require('fs');
 
 const URLS = [
   'https://www.imdb.com/title/tt0462538/?ref_=fn_al_tt_2',
@@ -32,7 +33,6 @@ const URLS = [
 
     let $ = cheerio.load(response);
     let title = $('div[class="title_wrapper"] > h1').text().trim();
-    // let rating = $('span[itemprop="ratingValue"]').text();
     let rating = $('div[class="ratingValue"] > strong > span').text();
     let posterURL = $('div[class="poster"] > a > img').attr('src');
     let ratingCount = $(
@@ -48,23 +48,19 @@ const URLS = [
       genres.push(genre);
     });
 
-    moviesData.push(
+    moviesData.push({
       title,
       rating,
-      poster,
       posterURL,
       ratingCount,
       releaseDate,
-      genres
-    );
+      genres,
+    });
 
-    console.log(`Title: ${title}`);
-    console.log(`Rating: ${rating}`);
-    console.log(`Poster URL: ${posterURL}`);
-    console.log(`Rating count: ${ratingCount}`);
-    console.log(`Release date: ${releaseDate}`);
-    console.log(`Genres: ${genres}`);
+    fs.writeFileSync('./data.json', JSON.stringify(moviesData), 'utf-8');
 
-    // console.log(response.headers);
+    // console.log(moviesData);
+
+    // debugger;
   }
 })();
