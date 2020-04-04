@@ -1,6 +1,7 @@
 const request = require('request-promise');
 const cheerio = require('cheerio');
 const fs = require('fs');
+const Json2csvParser = require('json2csv').Parser;
 
 const URLS = [
   'https://www.imdb.com/title/tt0462538/?ref_=fn_al_tt_2',
@@ -57,10 +58,18 @@ const URLS = [
       genres,
     });
 
-    fs.writeFileSync('./data.json', JSON.stringify(moviesData), 'utf-8');
+    // 1. Save the parsed data as a JSON file
+    // fs.writeFileSync('./data.json', JSON.stringify(moviesData), 'utf-8');
 
-    // console.log(moviesData);
+    // 2. Save the parsed data as a CSV file
+    // const fields = ['title', 'rating'];
+    // const json2csvParser = new Json2csvParser({ fields });
+    // const csv = json2csvParser.parse(moviesData);
+    // fs.writeFileSync('./data.csv', csv, 'utf-8');
 
-    // debugger;
+    // 3. Save the parsed data as a CSV file without specifying column titles
+    const json2csvParser = new Json2csvParser();
+    const csv = json2csvParser.parse(moviesData);
+    fs.writeFileSync('./data.csv', csv, 'utf-8');
   }
 })();
