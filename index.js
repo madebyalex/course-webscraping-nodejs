@@ -8,10 +8,10 @@ const URLS = [
     url: 'https://www.imdb.com/title/tt0462538/?ref_=fn_al_tt_2',
     id: 'the_simpsons_movie',
   },
-  // {
-  //   url: 'https://www.imdb.com/title/tt0454876/?ref_=nv_sr_srsg_3',
-  //   id: 'the_life_of_pie',
-  // },
+  {
+    url: 'https://www.imdb.com/title/tt0454876/?ref_=nv_sr_srsg_3',
+    id: 'the_life_of_pie',
+  },
 ];
 
 (async () => {
@@ -66,24 +66,26 @@ const URLS = [
 
     let file = fs.createWriteStream(`${movie.id}.jpg`);
 
-    let stream = request({
-      uri: posterURL,
-      headers: {
-        'User-Agent': 'Super-Scraper',
-        Accept:
-          'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5',
-        'Accept-Encoding': 'gzip, deflate, br',
-        Connection: 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'none',
-        'Cache-Control': 'max-age=0',
-        TE: 'Trailers',
-      },
-      gzip: true,
-    }).pipe(file);
+    await new Promise((resolve, reject) => {
+      let stream = request({
+        uri: posterURL,
+        headers: {
+          'User-Agent': 'Super-Scraper',
+          Accept:
+            'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+          'Accept-Language': 'en-US,en;q=0.5',
+          'Accept-Encoding': 'gzip, deflate, br',
+          Connection: 'keep-alive',
+          'Upgrade-Insecure-Requests': '1',
+          'Sec-Fetch-Dest': 'document',
+          'Sec-Fetch-Mode': 'navigate',
+          'Sec-Fetch-Site': 'none',
+          'Cache-Control': 'max-age=0',
+          TE: 'Trailers',
+        },
+        gzip: true,
+      }).pipe(file);
+    });
   }
   // fs.writeFileSync('./data.json', JSON.stringify(moviesData), 'utf-8');
 })();
