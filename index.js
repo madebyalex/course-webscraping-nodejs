@@ -84,7 +84,17 @@ const URLS = [
           TE: 'Trailers',
         },
         gzip: true,
-      }).pipe(file);
+      })
+        .pipe(file)
+        .on('finish', () => {
+          console.log(`${movie.id} has finished downloading the image.`);
+          resolve();
+        })
+        .on('error', (error) => {
+          reject(error);
+        });
+    }).catch((error) => {
+      console.log(`${movie.id} has an error on download. ${error}`);
     });
   }
   // fs.writeFileSync('./data.json', JSON.stringify(moviesData), 'utf-8');
