@@ -1,14 +1,24 @@
-const request = require('request-promise').defaults({
-  // Full of a proxy: http://username:password@ip:port
+const request = require('request-promise');
 
-  // proxy: 'http://103.123.246.54:8080',
-  proxy: 'http://31.146.31.182:3128',
-});
+// Show additional information about the response
+request.debug = 1;
 
 (async () => {
-  let response = await request('https://httpbin.org/ip');
-  // console.log(response);
+  console.log('Initial request');
 
-  console.log(response);
-  debugger;
+  try {
+    let status = await request({
+      url: 'https://httpbin.org/status/300',
+      resolveWithFullResponse: true,
+    });
+  } catch (response) {
+    if (response.statusCode == 300) {
+      console.log(
+        `Everything is fine! The status code ${response.statusCode} is valid.`
+      );
+    } else {
+      console.log(`Something has happened: ${response}`);
+      process.exit(1);
+    }
+  }
 })();
