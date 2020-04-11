@@ -4,19 +4,18 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch({
     headless: false,
   });
-  var timestamp = new Date().getTime();
   const page = await browser.newPage();
-  await page.goto('https://google.com');
-  await page.type('input.gsfi', 'Hello world!', { delay: 100 }); // Types slower, like a user
-  await page.keyboard.press('Enter');
-  await page.waitForNavigation();
+  await page.goto('https://instagram.com');
+  // await page.waitFor('a[href="/accounts/login/?source=auth_switcher"');
+  // await page.click('a[href="/accounts/login/?source=auth_switcher"');
 
-  await page.screenshot({
-    path: `scrapped-imgs/example-${timestamp}.png`,
-    fullPage: true,
-  });
+  await page.waitFor(500);
 
-  // await browser.close();
+  await page.waitFor('input[name="username"]');
+  await page.type('input[name="username"]', 'cool-user');
+  await page.type('input[name="password"]', 'strongPassword');
+  await page.click('button[type="submit"]');
 
   debugger;
+  // await browser.close();
 })();
